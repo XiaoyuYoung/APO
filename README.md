@@ -75,10 +75,279 @@ We have upload this dataset on [huggingface](https://huggingface.co/datasets/Mia
 git clone https://huggingface.co/datasets/MiaoMiaoYang/CXR-MAX
 ```
 
-![radiology-report](./images/radiology-report.png)
-![claude](./images/Sonnet-4.png)
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column is-full">
+                    <h2 class="title is-3">CXR-MAX Dataset</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                            To evaluate reasoning alignment in non-stationary environments, a dataset exhibiting
+                            high-variance inter-model drift is essential. Existing benchmarks typically rely on
+                            single-source annotations or static consensus, failing to capture the dynamic conflicts
+                            inherent in multi-stream reasoning.
+                        </p>
+                        <p>
+                            Addressing this gap, we introduce <strong>CXR-MAX (Multi-source Alignment for
+                                X-rays)</strong>, a large-scale benchmark designed to facilitate the study of autonomous
+                            preference optimization. CXR-MAX extends the MIMIC-CXR dataset by aggregating reasoning
+                            trajectories from seven distinct, publicly available MLLMs. CXR-MAX provides
+                            <strong>170,982</strong> distillation instances of reasoning trajectories covering 14
+                            thoracic pathologies.
+                        </p>
 
+                        <div class="box mt-5" style="background-color: #fcfcfc;">
+                            <h3 class="title is-4 mb-4" style="color: #4a4a4a;">Example Instance from CXR-MAX</h3>
+                            <div class="columns">
+                                <div class="column is-one-third">
+                                    <img src="./CXR.jpg" alt="Chest X-Ray"
+                                        style="width:100%; border-radius:8px; margin-bottom:15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                    <div class="message is-dark">
+                                        <div class="message-header" style="padding: 0.5em 0.75em;">
+                                            <p style="font-size: 14px;">Radiology Report (Ground Truth)</p>
+                                        </div>
+                                        <div class="message-body"
+                                            style="font-size: 12px; padding: 0.75em; line-height: 1.5;">
+                                            <strong>Findings:</strong> There is unchanged moderate left lower lobe
+                                            atelectasis and bilateral pleural effusions. Linear atelectases in the left
+                                            mid lung field are again seen, essentially unchanged. Lesion in the right
+                                            seventh rib is unchanged. Pleurx catheter is seen, unchanged in position at
+                                            the base of the left lung. There is no evidence of pneumothorax. Pacer is
+                                            seen with leads appropriately placed within the right and left atria.
+                                            Mediastinal silhouette is within normal limits with a calcified aorta.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column is-two-thirds">
+                                    <div style="height: 450px; overflow-y: auto; padding-right: 15px;">
 
+                                        <!-- Claude Sonnet-4 -->
+                                        <div class="card mb-4">
+                                            <header class="card-header" style="background-color: #f5f5f5;">
+                                                <p class="card-header-title is-size-6"
+                                                    style="padding: 0.5em 0.75em; color: #555;">Claude Sonnet-4</p>
+                                            </header>
+                                            <div class="card-content"
+                                                style="padding: 1em; font-size: 13px; color: #444;">
+                                                <p>Looking at this chest X-ray, I can identify several findings that
+                                                    support the diagnoses of atelectasis and pleural effusion:</p>
+                                                <p class="mt-2"><b>Evidence of Atelectasis:</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li><b>Volume loss in the right hemithorax</b> - The right side
+                                                        appears smaller compared to the left</li>
+                                                    <li><b>Mediastinal shift</b> - The mediastinum appears shifted
+                                                        toward the right side</li>
+                                                    <li><b>Elevated right hemidiaphragm</b> - The right diaphragm
+                                                        appears higher than the left</li>
+                                                    <li><b>Increased opacity in the right lung</b> - Areas of collapsed
+                                                        lung tissue appear more dense/white</li>
+                                                </ul>
+                                                <p class="mt-2"><b>Evidence of Pleural Effusion:</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li><b>Blunting of the right costophrenic angle</b> - The normally
+                                                        sharp angle is obscured</li>
+                                                    <li><b>Increased density at the right lung base</b> - There appears
+                                                        to be fluid accumulation in the lower right pleural space</li>
+                                                    <li><b>Meniscus sign</b> - The fluid appears to have the
+                                                        characteristic curved upper border</li>
+                                                </ul>
+                                                <p class="mt-2">The combination of these findings provides clear
+                                                    radiographic evidence supporting both diagnoses...</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- GPT-5-nano -->
+                                        <div class="card mb-4">
+                                            <header class="card-header" style="background-color: #f5f5f5;">
+                                                <p class="card-header-title is-size-6"
+                                                    style="padding: 0.5em 0.75em; color: #555;">GPT-5-nano</p>
+                                            </header>
+                                            <div class="card-content"
+                                                style="padding: 1em; font-size: 13px; color: #444;">
+                                                <p>Key findings that support atelectasis and pleural effusion:</p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li>Left subclavian pacemaker/ICD in place (device visible in the
+                                                        left chest).</li>
+                                                    <li>Basilar opacities at the left lower lung suggesting
+                                                        subsegmental/plate-like atelectasis with some volume loss.</li>
+                                                    <li>Blunting of the left costophrenic angle with posterior layering
+                                                        of fluid consistent with a small left pleural effusion.</li>
+                                                </ul>
+                                                <p class="mt-2">Right lung and mediastinal contours are otherwise
+                                                    relatively unremarkable. <br>In short: left basilar atelectasis with
+                                                    a small left pleural effusion. Correlate clinically...</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- GLM-4.5V -->
+                                        <div class="card mb-4">
+                                            <header class="card-header" style="background-color: #f5f5f5;">
+                                                <p class="card-header-title is-size-6"
+                                                    style="padding: 0.5em 0.75em; color: #555;">GLM-4.5V</p>
+                                            </header>
+                                            <div class="card-content"
+                                                style="padding: 1em; font-size: 13px; color: #444;">
+                                                <p>To determine the basis for diagnosing <b>Atelectasis</b> and
+                                                    <b>Pleural Effusion</b> in the chest X-ray, we analyze key imaging
+                                                    features:
+                                                </p>
+                                                <p class="mt-2"><b>1. Pleural Effusion:</b><br>Pleural effusion is
+                                                    identified by <b>blunting of the costophrenic angles</b>... In this
+                                                    image, the right costophrenic angle appears blurred and loses its
+                                                    typical sharp contour...</p>
+                                                <p class="mt-2"><b>2. Atelectasis:</b><br>Atelectasis refers to partial
+                                                    lung collapse, which shows as <b>increased opacity (whiteness)</b>
+                                                    in the affected lung regions... In this X-ray, there are areas of
+                                                    increased density in the lower lung fields (particularly on the
+                                                    right side)...</p>
+                                                <p class="mt-2">In summary, the diagnostic clues are the <b>blunted
+                                                        right costophrenic angle</b> and <b>increased opacification in
+                                                        the lower lung zones</b>.</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Gemini-2.5-flash-lite -->
+                                        <div class="card mb-4">
+                                            <header class="card-header" style="background-color: #f5f5f5;">
+                                                <p class="card-header-title is-size-6"
+                                                    style="padding: 0.5em 0.75em; color: #555;">Gemini-2.5-flash-lite
+                                                </p>
+                                            </header>
+                                            <div class="card-content"
+                                                style="padding: 1em; font-size: 13px; color: #444;">
+                                                <p>Based on the chest DR image, here are the findings that support the
+                                                    diagnoses of Atelectasis and Pleural Effusion:</p>
+                                                <p class="mt-2"><b>1. Pleural Effusion:</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li><b>Right Costophrenic Angle Blunting:</b> The right costophrenic
+                                                        angle is completely blunted and obscured by fluid.</li>
+                                                    <li><b>Meniscus Sign:</b> There is a dense, homogeneous opacity at
+                                                        the right lung base with a characteristic curvilinear upper
+                                                        border...</li>
+                                                    <li><b>Obscured Diaphragm:</b> The right hemidiaphragm is completely
+                                                        obscured by the effusion.</li>
+                                                </ul>
+                                                <p class="mt-2"><b>2. Atelectasis:</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li><b>Mediastinal Shift:</b> The mediastinum is shifted towards the
+                                                        right...</li>
+                                                    <li><b>Reduced Right Lung Volume:</b> The overall right lung field
+                                                        appears smaller and more collapsed...</li>
+                                                    <li><b>Increased Opacity/Consolidation:</b> The remaining lung
+                                                        parenchyma in the right hemithorax appears denser...</li>
+                                                </ul>
+                                                <p class="mt-2">In summary, the image demonstrates a large right-sided
+                                                    pleural effusion... accompanied by signs of volume loss in the right
+                                                    hemithorax...</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Moonshot-v1 -->
+                                        <div class="card mb-4">
+                                            <header class="card-header" style="background-color: #f5f5f5;">
+                                                <p class="card-header-title is-size-6"
+                                                    style="padding: 0.5em 0.75em; color: #555;">Moonshot-v1</p>
+                                            </header>
+                                            <div class="card-content"
+                                                style="padding: 1em; font-size: 13px; color: #444;">
+                                                <p>As an AI, I'm not capable of providing medical diagnoses or
+                                                    interpreting medical images with the same level of expertise as a
+                                                    trained medical professional. However, I can provide general
+                                                    information...</p>
+                                                <p class="mt-2">Atelectasis is a condition where one or both lungs
+                                                    partially or completely collapse. On an X-ray, this might appear as
+                                                    an area of increased opacity...</p>
+                                                <p class="mt-2">Pleural effusion refers to the buildup of excess fluid
+                                                    in the pleural cavity... This can cause the lung to partially
+                                                    collapse and may appear on an X-ray as a layering density at the
+                                                    lung base or costophrenic angle...</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Qwen-VL-Max -->
+                                        <div class="card mb-4">
+                                            <header class="card-header" style="background-color: #f5f5f5;">
+                                                <p class="card-header-title is-size-6"
+                                                    style="padding: 0.5em 0.75em; color: #555;">Qwen-VL-Max</p>
+                                            </header>
+                                            <div class="card-content"
+                                                style="padding: 1em; font-size: 13px; color: #444;">
+                                                <p>The chest X-ray (DR image) shows several findings consistent with
+                                                    <b>atelectasis</b> and <b>pleural effusion</b>, particularly on the
+                                                    <b>left side</b>. Here's the basis for each diagnosis:
+                                                </p>
+                                                <p class="mt-2"><b>1. Pleural Effusion (Left Side)</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li><b>Blunting of the left costophrenic angle:</b> The sharp angle
+                                                        between the diaphragm and rib cage on the left is obscured or
+                                                        rounded...</li>
+                                                    <li><b>Homogeneous opacity in the lower left hemithorax:</b> There
+                                                        is increased density in the left lower lung field...</li>
+                                                    <li><b>Meniscus sign:</b> A concave upper border of the fluid
+                                                        collection...</li>
+                                                    <li><b>Elevation of the left hemidiaphragm:</b> Fluid can push the
+                                                        diaphragm upward.</li>
+                                                </ul>
+                                                <p class="mt-2"><b>2. Atelectasis (Left Lower Lobe Likely)</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li><b>Volume loss in the left lower lung:</b> The left hemithorax
+                                                        appears compressed, and there is a shift of mediastinal
+                                                        structures slightly toward the left...</li>
+                                                    <li><b>Loss of normal lung markings in the affected area:</b> The
+                                                        lung tissue appears denser and consolidated...</li>
+                                                </ul>
+                                                <p class="mt-2"><b>Summary:</b><br>&#10004; <b>Pleural effusion</b>:
+                                                    Left-sided, based on blunted costophrenic angle, homogeneous
+                                                    opacity, and diaphragmatic elevation.<br>&#10004;
+                                                    <b>Atelectasis</b>: Likely left lower lobe, secondary to compressive
+                                                    atelectasis from the adjacent pleural effusion.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Grok-4 -->
+                                        <div class="card mb-4">
+                                            <header class="card-header" style="background-color: #f5f5f5;">
+                                                <p class="card-header-title is-size-6"
+                                                    style="padding: 0.5em 0.75em; color: #555;">Grok-4</p>
+                                            </header>
+                                            <div class="card-content"
+                                                style="padding: 1em; font-size: 13px; color: #444;">
+                                                <p>I can explain the basis for the diagnosis of atelectasis and pleural
+                                                    effusion based on an analysis of the chest X-ray (CXR) you provided.
+                                                    I'll keep this concise, objective, and focused on the visible
+                                                    findings...</p>
+                                                <p class="mt-2"><b>1. Basis for Pleural Effusion:</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li>Increased opacity (whitish haziness) at the right lung base,
+                                                        obscuring the normal sharp outline of the right hemidiaphragm...
+                                                    </li>
+                                                    <li>Blunting or filling-in of the right costophrenic angle...</li>
+                                                    <li>A subtle "meniscus sign" (curved upper border of the opacity) at
+                                                        the right base...</li>
+                                                </ul>
+                                                <p class="mt-2"><b>2. Basis for Atelectasis:</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li>Loss of volume and increased density in the right lower lung
+                                                        zone, making it appear smaller and whiter compared to the left
+                                                        lung...</li>
+                                                    <li>Crowding or absence of normal lung markings (vascular
+                                                        structures) in the affected area...</li>
+                                                    <li>Subtle elevation or silhouetting of the right hemidiaphragm,
+                                                        suggesting collapse of the adjacent lung tissue.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 If you find this repository useful for your research, please consider citing our paper:
