@@ -77,9 +77,18 @@ git clone https://huggingface.co/datasets/MiaoMiaoYang/CXR-MAX
 
 ![radiology-report](./images/radiology-report.png)
 ![claude](./images/Sonnet-4.png)
-![GPT-5](./images/GPT-5.png)
-![GLM-4.5V](./images/GLM.png)
-![Gemini-2.5-flash-lite](./images/Gemini.png)
-![Moonshot-v1](./images/Moonshot.png)
-![Qwen-VL-Max](./images/Qwen.png)
-![Grok-4](./images/Grok.png)
+
+
+
+
+If you find this repository useful for your research, please consider citing our paper:
+
+```bibtex
+@inproceedings{anonymous2026turning,
+    title={Turning Drift into Constraint: Robust Reasoning Alignment in Non-Stationary Multi-Stream Environments},
+    author={Yang, Xiaoyu and Lu, Jie and Duan, Wei and Yu, En},
+    booktitle={Forty-third International Conference on Machine Learning},
+    year={2026},
+    url={https://openreview.net/forum?id=jgebUtw1lA}
+}
+```
