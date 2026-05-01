@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description"
+        content="Turning Drift into Constraint: Robust Reasoning Alignment in Non-Stationary Multi-Stream Environments">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Turning Drift into Constraint - ICML 2026</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        .publication-title {
+            font-family: 'Google Sans', sans-serif;
+            font-weight: 700;
+        }
+
+        .author-block a {
+            color: #007bff;
+        }
+
+        .hero {
+            background-color: #f5f5f5;
+            padding: 3rem 0;
+        }
+
+        .content-section {
+            padding: 2rem 0;
+        }
+
+        .method-img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlight-red {
+            color: #E24B4A;
+            font-weight: bold;
+        }
+
+        .highlight-blue {
+            color: #0070C0;
+            font-weight: bold;
+        }
+
+        /* Custom layout for methodology */
+        .methodology-box {
+            background: #f7f8fc;
+            border: 1px solid #e2e6f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']], tags: 'none' },
+            options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+
+<body>
+
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop has-text-centered">
+                <h1 class="title is-2 publication-title">Turning Drift into Constraint: Robust Reasoning Alignment in
+                    Non-Stationary Multi-Stream Environments</h1>
+                <h5 class="title is-5 publication-title">[ICML 2026]</h5>
+
+                <div class="is-size-5 publication-authors">
+                    <span class="author-block"> <a href="https://xiaoyuyoung.github.io/">Xiaoyu Yang</a></span>,
+                    <span class="author-block"><a href="https://profiles.uts.edu.au/Jie.Lu">Jie Lu</a></span>,
+                    <span class="author-block">Wei Duan</span>
+                    <span class="author-block">En Yu</span>
+                </div>
+                <div class="is-size-5 publication-authors">
+                    <span class="author-block">Australian Artificial Intelligence Institute (AAII)</span> <br>
+                    <span class="author-block">University of Technology Sydney (UTS)</span>
+                </div>
+
+                <div class="column has-text-centered mt-4">
+                    <div class="publication-links">
+                        <a href="https://github.com/XiaoyuYoung/APO" class="button is-dark is-rounded"><span
+                                class="icon"><i class="fab fa-github"></i></span><span>Code</span></a>
+                        <a href="https://arxiv.org/abs/2510.04142" class="button is-dark is-rounded"><span
+                                class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span></a>
+                        <a href="https://huggingface.co/datasets/MiaoMiaoYang/CXR-MAX/"
+                            class="button is-dark is-rounded"><span class="icon">
+                                <p style="font-size:18px">🤗</p>
+                            </span><span>CXR-MAX Dataset</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="section content-section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">Abstract</h2>
+                    <div class="content has-text-justified">
+                        This paper identifies a critical yet underexplored challenge in reasoning alignment from
+                        multiple multi-modal large language models (MLLMs):
+                        In non-stationary environments, the diverse reasoning distributions of source models often
+                        evolve unpredictably, transmitting systematic biases and drift to the target model.
+                        To address this, <b>we formulate multi-source reasoning alignment as a constraint satisfaction
+                            problem under concept drift theory.</b>
+                        We propose <b> Autonomous Preference Optimization (APO) </b>, a novel framework that treats
+                        inter-model
+                        divergences not as noise, but as dynamic negative constraints.
+                        APO operates via a two-stage protocol: first, supervised bootstrapping projects the target model
+                        into the capability union of source models; second, constraint-aware optimization synthesizes a
+                        consistent consensus manifold by explicitly suppressing drifting trajectories via a
+                        multi-negative Plackett-Luce objective.
+                        Extensive experiments on chest X-ray interpretation demonstrate that our 7B model achieves
+                        superior robustness, outperforming even proprietary source models in average accuracy.
+                        Furthermore, we release CXR-MAX, a large-scale benchmark comprising 170,982 reasoning
+                        trajectories from seven large-scale MLLMs to facilitate research on reasoning alignment under
+                        drift.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section pt-5 pb-0">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column is-four-fifths">
+                    <div class="video-container has-text-centered">
+                        <video class="video-teaser" autoplay loop muted playsinline
+                            style="width: 100%; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.12);">
+                            <source src="https://github.com/XiaoyuYoung/APO/raw/web/APO.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <p class="is-size-6 mt-3 has-text-grey">
+                            <i>"两小儿辩日·列子" (Two Children Arguing about the Sun, Lie Zi) vividly illustrates
+                                <b>Multi-source
+                                    drift</b>: Different source models, like the two children, often produce conflicting
+                                yet seemingly reasonable logical trajectories.</i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FINDINGS ==================== -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Findings</h2>
+            <div class="columns is-centered">
+                <div class="column is-full">
+
+                    <div class="mb-5 has-text-centered">
+                        <img src="./measure.png" alt="Concept drift among source MLLMs"
+                            style="max-width: 80%; border-radius:10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                        <p class="is-size-7 mt-2 has-text-grey">Concept drift among source MLLMs.</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <div
+                            style="background-color:white; border:1px solid #ddd; border-radius:10px; padding:20px; font-size:14px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); text-align: left;">
+                            <p style="font-weight:bold; margin-bottom:12px; font-size:16px; color:#555;">Distilled
+                                Student</p>
+                            <p style="margin-bottom:8px;">Based on the provided PA chest X-ray, the following key
+                                findings support the diagnoses of atelectasis and pleural effusion:</p>
+                            <p style="margin-bottom:6px; font-weight:bold;">1. Atelectasis:</p>
+                            <ul style="margin-left:20px; margin-bottom:12px; list-style-type:disc;">
+                                <li style="margin-bottom:8px;">Volume Loss in the Left Lower Lung Field: The left lower
+                                    lung appears significantly <span class="highlight-red">darker than the right,
+                                        indicating volume loss.</span><br>
+                                    <span style="color:#008080;"># Inconsistency: atelectasis is denser (whiter), not
+                                        darker.</span>
+                                </li>
+                                <li>...</li>
+                            </ul>
+                            <p style="margin-bottom:6px; font-weight:bold;">2. Pleural Effusion:</p>
+                            <ul style="margin-left:20px; list-style-type:disc;">
+                                <li style="margin-bottom:8px;"><span class="highlight-red">Bilateral Pleural Opacities:
+                                        Both lungs show areas of increased opacity, but they are more pronounced on the
+                                        left.</span><br>
+                                    <span style="color:#008080;"># Overgeneralization: bilateral opacities may have
+                                        multiple causes and cannot be considered the primary cause.</span>
+                                </li>
+                                <li style="margin-bottom:8px;">Possible Pleural Line: There may be a pleural line
+                                    visible along the midline, <span class="highlight-red">indicating pleural fluid
+                                        accumulation.</span><br>
+                                    <span style="color:#008080;"># Inconsistency: pleural line along the midline usually
+                                        indicates pneumothorax, not pleural effusion.</span>
+                                </li>
+                                <li style="margin-bottom:8px;"><span class="highlight-red">No Evidence of Pulmonary
+                                        Infiltrates:</span> The lung fields appear relatively clear, with no signs of
+                                    pulmonary infiltrates, consolidation, or ground-glass opacities.<br>
+                                    <span style="color:#008080;"># Overconfident: infiltrates may be masked.</span>
+                                </li>
+                                <li>...</li>
+                            </ul>
+                        </div>
+                        <p class="is-size-7 mt-2 has-text-centered has-text-grey">Example of drift-biased target model.
+                        </p>
+                    </div>
+
+                    <div class="methodology-box mt-5">
+                        <h3 class="title is-5" style="color:#555;">Main Observations</h3>
+                        <ol style="margin-left:20px; font-size:14px; color:#444; line-height:1.65; margin-bottom:12px;">
+                            <li><i>While some models, such as Qwen-VL-Max, adhere to high-precision, concise reasoning
+                                    distributions, others like GPT-4o favor high-recall, expansive elaboration. This
+                                    suggests that the "true" reasoning manifold lies within the consensus of these
+                                    divergent streams, rather than in any single trajectory.</i></li>
+                            <li class="mt-2"><i>The target model trained simply to mimic these drifting streams does not
+                                    automatically synthesize their strengths; instead, it internalizes the union of
+                                    their biases, resulting in hallucinations and semantic inconsistencies.</i></li>
+                        </ol>
+
+                        <div
+                            style="background-color:#ffebeb; border-left:4px solid #E24B4A; padding:15px; border-radius:4px; margin-top:20px;">
+                            <p style="font-size:15px; font-weight:bold; color:#E24B4A; text-align:center;">
+                                <i>How can we autonomously turn drift into constraint, thereby achieving robust
+                                    reasoning alignment in non-stationary environments?</i>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==================== END FINDINGS ==================== -->
+
+    <!-- ==================== METHODOLOGY ==================== -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Methodology</h2>
+            <div class="columns is-centered">
+                <div class="column is-full">
+
+                    <div class="has-text-centered mb-6">
+                        <img src="./workflow.png" alt="Workflow of Autonomous Preference Optimization"
+                            style="max-width: 100%; border-radius:10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                        <div class="content has-text-justified is-size-7 mt-4 has-text-grey" style="line-height: 1.6;">
+                            <p><b>The main contributions of our methods.</b></p>
+                            <p style="margin-bottom: 8px;"><b>(a) Supervised Bootstrapping with Consensus Synthesis.</b>
+                                In the initial phase, the target model undergoes Supervised Bootstrapping to establish a
+                                broad capability covering by assimilating the collective knowledge of source MLLMs.
+                                However, as shown in the inference block, this naive integration inevitably inherits
+                                non-stationary inter-model drift, resulting in hallucinations and semantic ambiguities.
+                            </p>
+                            <p style="margin-bottom: 8px;"><b>(b) Constraint-Aware Optimization for Robust Reasoning
+                                    Alignment.</b> To mitigate the inherited drift, we propose a Constraint-Aware
+                                protocol. The model first employs in-context extraction to synthesize self-consistent
+                                consensus trajectories as preferred thinking. Crucially, rather than simply discarding
+                                the conflicting source outputs, APO repurposes them as negative constraints within a
+                                Plackett-Luce preference formulation, explicitly suppressing the probability of
+                                generating drifting patterns.</p>
+                            <p style="margin-bottom: 0;"><b>(c) Evolution of Distributions.</b> The distributional
+                                dynamics of our alignment process. Initially, bootstrapping projects the target model
+                                into the union of source distributions (Yellow). Subsequently, APO refines this space by
+                                treating the drifting regions (Red) as decision boundaries to be avoided, effectively
+                                carving out a robust consensus manifold (Green) for reliable reasoning.</p>
+                        </div>
+                    </div>
+
+                    <div class="methodology-box mb-5"
+                        style="border-left: 4px solid #0070C0; background-color: #f0f7fb;">
+                        <h3 class="title is-5" style="color:#0070C0;">Definition: Multi-Stream Reasoning Drift</h3>
+                        <p style="font-size:14px;color:#444;line-height:1.65;margin-bottom:12px;">
+                            <i>Consider $N$ CoT streams corresponding to $N$ source models. Let the collective state at
+                                reasoning step $j$ be denoted by $\mathcal{S}_{j} = (s^{1}_{j}, \ldots, s^{N}_{j})$,
+                                where $s^{u}_{j}$ represents the state of the $u$-th source model.
+                                We define the reasoning alignment process as experiencing concept drift if the joint
+                                distribution of the collective states evolves non-stationarily across steps. That is,
+                                for any two distinct reasoning steps $j$ and $j+\Delta$, the joint probability
+                                distributions differ:</i>
+                        </p>
+                        <p style="text-align:center;margin:12px 0;font-size:15px;color:#444;">
+                            $$ P_{j}(\mathcal{S}) \neq P_{j+\Delta}(\mathcal{S}) $$
+                        </p>
+                    </div>
+
+                    <div class="methodology-box" style="background:#f9f9f9;">
+                        <h3 class="title is-5" style="color:#555;">Autonomous Preference Optimization (APO)</h3>
+                        <p style="font-size:14px;color:#444;line-height:1.65;margin-bottom:12px;">
+                            We recast multi-source reasoning integration as a constraint satisfaction problem.
+                            The target model undergoes Supervised Bootstrapping to establish a broad capability
+                            covering. To mitigate inherited drift, APO employs in-context extraction to synthesize
+                            self-consistent consensus trajectories.
+                            Crucially, rather than discarding conflicting source outputs, APO repurposes them as
+                            negative constraints within a Plackett-Luce preference formulation:
+                        </p>
+                        <p style="text-align:center;margin:12px 0;font-size:15px;">
+                            $$ P(t^{+} \succ \mathcal{T} | v,l) = \frac{\exp (r(v,l,t^{+}))}{\exp (r(v,l,t^{+})) +
+                            \sum_{u=1}^{N} \exp (r(v,l,\tau^{u}))} $$
+                        </p>
+                        <div
+                            style="font-size:13px; color:#555; background-color:#fff; border:1px solid #eee; border-radius:6px; padding:12px; margin-bottom:12px;">
+                            <p style="margin-bottom:6px;"><b>Where:</b></p>
+                            <ul style="margin-left:20px; list-style-type:circle;">
+                                <li><b>$t^{+}$</b>: The synthesized self-consistent consensus trajectory (positive
+                                    constraint).</li>
+                                <li><b>$\mathcal{T}$</b>: The set of divergent, drifting reasoning trajectories from
+                                    source models.</li>
+                                <li><b>$\tau^{u}$</b>: The $u$-th negative trajectory within $\mathcal{T}$ ($u \in \{1,
+                                    \ldots, N\}$).</li>
+                                <li><b>$v, l$</b>: The input visual image and text prompt, respectively.</li>
+                                <li><b>$r(\cdot)$</b>: The implicit reward function indicating the model's preference
+                                    score.</li>
+                            </ul>
+                        </div>
+                        <p style="font-size:14px;color:#444;line-height:1.65;">
+                            This effectively minimizes the likelihood of generating drifting patterns while maximizing
+                            the consensus manifold.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==================== END METHODOLOGY ==================== -->
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Contributions</h2>
+            <div class="columns is-centered">
+                <div class="column is-full">
+                    <div class="content mt-3">
+                        <ul style="text-align: justify; font-size: 15px;">
+                            <li>
+                                <strong>Theoretical Framework:</strong> We establish a novel framework that recasts
+                                multi-source reasoning integration as a constraint satisfaction problem in
+                                non-stationary environments. We demonstrate how conflicting reasoning trajectories can
+                                be transformed from disruptive noise into actionable negative constraints.
+                            </li>
+                            <li>
+                                <strong>Autonomous Preference Optimization (APO):</strong> We propose APO, a
+                                self-supervised alignment strategy that eliminates the need for ground-truth labels. APO
+                                autonomously constructs preference pairs to guide robust reasoning alignment.
+                            </li>
+                            <li>
+                                <strong>Empirical Validation:</strong> We conduct extensive evaluations across diverse
+                                benchmarks. APO achieves superior robustness and generalization while utilizing only 10%
+                                of the data typically required by standard alignment methods.
+                            </li>
+                            <li>
+                                <strong>CXR-MAX Dataset:</strong> To facilitate future research on alignment under
+                                drift, we release CXR-MAX, a large-scale benchmark comprising over 170k reasoning
+                                trajectories with fine-grained alignment annotations.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Results</h2>
+            <div class="columns is-centered">
+                <div class="column is-full">
+                    <p class="mb-4">
+                        Beyond comparing with standard domain-specific baselines, a more rigorous evaluation benchmarks
+                        our 7B-parameter target model against the proprietary source MLLMs, which possess vastly
+                        superior parameter scales, such as GPT-5 and Claude Sonnet-4. As visualized below, despite the
+                        immense disparity in model size, our approach achieves the highest average accuracy of 0.78
+                        across all diseases, surpassing every single source MLLM. This counter-intuitive result
+                        empirically demonstrates that our constraint-aware optimization empowers the compact target
+                        model to synthesize a consensus manifold that effectively integrates the diverse strengths of
+                        the source ensemble, allowing it to stand on the shoulders of giants.
+                    </p>
+
+                    <div class="table-container">
+                        <table class="table is-striped is-hoverable is-fullwidth"
+                            style="font-family: 'Google Sans', sans-serif; font-size: 0.95rem;">
+                            <thead>
+                                <tr style="background-color: #f8f9fa;">
+                                    <th>MLLMs</th>
+                                    <th>Con.</th>
+                                    <th>PE</th>
+                                    <th>Pna.</th>
+                                    <th>Pnx.</th>
+                                    <th>Ede.</th>
+                                    <th><strong>Avg.</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background-color: #f0f0f0;">
+                                    <td colspan="7" class="has-text-grey is-italic">Source MLLMs with Huge Parameters
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>GPT-5</td>
+                                    <td>0.75</td>
+                                    <td class="highlight-blue">0.68</td>
+                                    <td class="highlight-red">0.89</td>
+                                    <td>0.90</td>
+                                    <td>0.52</td>
+                                    <td class="highlight-blue">0.75</td>
+                                </tr>
+                                <tr>
+                                    <td>Gemini-2.5</td>
+                                    <td>0.28</td>
+                                    <td>0.61</td>
+                                    <td>0.40</td>
+                                    <td>0.94</td>
+                                    <td>0.42</td>
+                                    <td>0.53</td>
+                                </tr>
+                                <tr>
+                                    <td>Sonnet-4</td>
+                                    <td class="highlight-red">0.89</td>
+                                    <td class="highlight-red">0.69</td>
+                                    <td>0.48</td>
+                                    <td>0.15</td>
+                                    <td>0.15</td>
+                                    <td>0.47</td>
+                                </tr>
+                                <tr>
+                                    <td>Qwen-VL-Max</td>
+                                    <td>0.54</td>
+                                    <td>0.65</td>
+                                    <td>0.40</td>
+                                    <td>0.95</td>
+                                    <td>0.64</td>
+                                    <td>0.64</td>
+                                </tr>
+                                <tr>
+                                    <td>Grok-4</td>
+                                    <td>0.43</td>
+                                    <td>0.41</td>
+                                    <td>0.36</td>
+                                    <td class="highlight-red">0.97</td>
+                                    <td>0.61</td>
+                                    <td>0.56</td>
+                                </tr>
+                                <tr>
+                                    <td>GLM-4.5V</td>
+                                    <td>0.59</td>
+                                    <td>0.67</td>
+                                    <td>0.52</td>
+                                    <td>0.96</td>
+                                    <td class="highlight-red">0.72</td>
+                                    <td>0.69</td>
+                                </tr>
+                                <tr>
+                                    <td>Moonshot</td>
+                                    <td>0.13</td>
+                                    <td>0.46</td>
+                                    <td>0.77</td>
+                                    <td>0.88</td>
+                                    <td>0.19</td>
+                                    <td>0.48</td>
+                                </tr>
+                                <tr style="background-color: #f0f0f0;">
+                                    <td colspan="7" class="has-text-grey is-italic">Target Model (7B MLLM)</td>
+                                </tr>
+                                <tr style="background-color: #fff4e5; font-weight: bold;">
+                                    <td>Ours</td>
+                                    <td class="highlight-blue">0.84</td>
+                                    <td>0.67</td>
+                                    <td class="highlight-blue">0.78</td>
+                                    <td class="highlight-blue">0.96</td>
+                                    <td class="highlight-blue">0.65</td>
+                                    <td class="highlight-red">0.78</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p class="is-size-7 mt-2"><strong>Evaluation results of multiple source MLLMs on classification of
+                            MS-CXR-T for comparison.</strong> Top-1 accuracy is applied to evaluate the performance of
+                        different methods. The best-performing models are highlighted in red, with the second-best in
+                        blue. The comparison MLLMs include: Claude Sonnet-4, Gemini-2.5, GLM-4.5V, GPT-5, Qwen-VL-Max,
+                        Grok-4 and Moonshot-v1.</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column is-full">
+                    <h2 class="title is-3">CXR-MAX Dataset</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                            To evaluate reasoning alignment in non-stationary environments, a dataset exhibiting
+                            high-variance inter-model drift is essential. Existing benchmarks typically rely on
+                            single-source annotations or static consensus, failing to capture the dynamic conflicts
+                            inherent in multi-stream reasoning.
+                        </p>
+                        <p>
+                            Addressing this gap, we introduce <strong>CXR-MAX (Multi-source Alignment for
+                                X-rays)</strong>, a large-scale benchmark designed to facilitate the study of autonomous
+                            preference optimization. CXR-MAX extends the MIMIC-CXR dataset by aggregating reasoning
+                            trajectories from seven distinct, publicly available MLLMs. CXR-MAX provides
+                            <strong>170,982</strong> distillation instances of reasoning trajectories covering 14
+                            thoracic pathologies.
+                        </p>
+
+                        <div class="box mt-5" style="background-color: #fcfcfc;">
+                            <h3 class="title is-4 mb-4" style="color: #4a4a4a;">Example Instance from CXR-MAX</h3>
+                            <div class="columns">
+                                <div class="column is-one-third">
+                                    <img src="./CXR.jpg" alt="Chest X-Ray"
+                                        style="width:100%; border-radius:8px; margin-bottom:15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                    <div class="message is-dark">
+                                        <div class="message-header" style="padding: 0.5em 0.75em;">
+                                            <p style="font-size: 14px;">Radiology Report (Ground Truth)</p>
+                                        </div>
+                                        <div class="message-body"
+                                            style="font-size: 12px; padding: 0.75em; line-height: 1.5;">
+                                            <strong>Findings:</strong> There is unchanged moderate left lower lobe
+                                            atelectasis and bilateral pleural effusions. Linear atelectases in the left
+                                            mid lung field are again seen, essentially unchanged. Lesion in the right
+                                            seventh rib is unchanged. Pleurx catheter is seen, unchanged in position at
+                                            the base of the left lung. There is no evidence of pneumothorax. Pacer is
+                                            seen with leads appropriately placed within the right and left atria.
+                                            Mediastinal silhouette is within normal limits with a calcified aorta.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column is-two-thirds">
+                                    <div style="height: 450px; overflow-y: auto; padding-right: 15px;">
+
+                                        <!-- Claude Sonnet-4 -->
+                                        <div class="card mb-4">
+                                            <header class="card-header" style="background-color: #f5f5f5;">
+                                                <p class="card-header-title is-size-6"
+                                                    style="padding: 0.5em 0.75em; color: #555;">Claude Sonnet-4</p>
+                                            </header>
+                                            <div class="card-content"
+                                                style="padding: 1em; font-size: 13px; color: #444;">
+                                                <p>Looking at this chest X-ray, I can identify several findings that
+                                                    support the diagnoses of atelectasis and pleural effusion:</p>
+                                                <p class="mt-2"><b>Evidence of Atelectasis:</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li><b>Volume loss in the right hemithorax</b> - The right side
+                                                        appears smaller compared to the left</li>
+                                                    <li><b>Mediastinal shift</b> - The mediastinum appears shifted
+                                                        toward the right side</li>
+                                                    <li><b>Elevated right hemidiaphragm</b> - The right diaphragm
+                                                        appears higher than the left</li>
+                                                    <li><b>Increased opacity in the right lung</b> - Areas of collapsed
+                                                        lung tissue appear more dense/white</li>
+                                                </ul>
+                                                <p class="mt-2"><b>Evidence of Pleural Effusion:</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li><b>Blunting of the right costophrenic angle</b> - The normally
+                                                        sharp angle is obscured</li>
+                                                    <li><b>Increased density at the right lung base</b> - There appears
+                                                        to be fluid accumulation in the lower right pleural space</li>
+                                                    <li><b>Meniscus sign</b> - The fluid appears to have the
+                                                        characteristic curved upper border</li>
+                                                </ul>
+                                                <p class="mt-2">The combination of these findings provides clear
+                                                    radiographic evidence supporting both diagnoses...</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- GPT-5-nano -->
+                                        <div class="card mb-4">
+                                            <header class="card-header" style="background-color: #f5f5f5;">
+                                                <p class="card-header-title is-size-6"
+                                                    style="padding: 0.5em 0.75em; color: #555;">GPT-5-nano</p>
+                                            </header>
+                                            <div class="card-content"
+                                                style="padding: 1em; font-size: 13px; color: #444;">
+                                                <p>Key findings that support atelectasis and pleural effusion:</p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li>Left subclavian pacemaker/ICD in place (device visible in the
+                                                        left chest).</li>
+                                                    <li>Basilar opacities at the left lower lung suggesting
+                                                        subsegmental/plate-like atelectasis with some volume loss.</li>
+                                                    <li>Blunting of the left costophrenic angle with posterior layering
+                                                        of fluid consistent with a small left pleural effusion.</li>
+                                                </ul>
+                                                <p class="mt-2">Right lung and mediastinal contours are otherwise
+                                                    relatively unremarkable. <br>In short: left basilar atelectasis with
+                                                    a small left pleural effusion. Correlate clinically...</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- GLM-4.5V -->
+                                        <div class="card mb-4">
+                                            <header class="card-header" style="background-color: #f5f5f5;">
+                                                <p class="card-header-title is-size-6"
+                                                    style="padding: 0.5em 0.75em; color: #555;">GLM-4.5V</p>
+                                            </header>
+                                            <div class="card-content"
+                                                style="padding: 1em; font-size: 13px; color: #444;">
+                                                <p>To determine the basis for diagnosing <b>Atelectasis</b> and
+                                                    <b>Pleural Effusion</b> in the chest X-ray, we analyze key imaging
+                                                    features:
+                                                </p>
+                                                <p class="mt-2"><b>1. Pleural Effusion:</b><br>Pleural effusion is
+                                                    identified by <b>blunting of the costophrenic angles</b>... In this
+                                                    image, the right costophrenic angle appears blurred and loses its
+                                                    typical sharp contour...</p>
+                                                <p class="mt-2"><b>2. Atelectasis:</b><br>Atelectasis refers to partial
+                                                    lung collapse, which shows as <b>increased opacity (whiteness)</b>
+                                                    in the affected lung regions... In this X-ray, there are areas of
+                                                    increased density in the lower lung fields (particularly on the
+                                                    right side)...</p>
+                                                <p class="mt-2">In summary, the diagnostic clues are the <b>blunted
+                                                        right costophrenic angle</b> and <b>increased opacification in
+                                                        the lower lung zones</b>.</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Gemini-2.5-flash-lite -->
+                                        <div class="card mb-4">
+                                            <header class="card-header" style="background-color: #f5f5f5;">
+                                                <p class="card-header-title is-size-6"
+                                                    style="padding: 0.5em 0.75em; color: #555;">Gemini-2.5-flash-lite
+                                                </p>
+                                            </header>
+                                            <div class="card-content"
+                                                style="padding: 1em; font-size: 13px; color: #444;">
+                                                <p>Based on the chest DR image, here are the findings that support the
+                                                    diagnoses of Atelectasis and Pleural Effusion:</p>
+                                                <p class="mt-2"><b>1. Pleural Effusion:</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li><b>Right Costophrenic Angle Blunting:</b> The right costophrenic
+                                                        angle is completely blunted and obscured by fluid.</li>
+                                                    <li><b>Meniscus Sign:</b> There is a dense, homogeneous opacity at
+                                                        the right lung base with a characteristic curvilinear upper
+                                                        border...</li>
+                                                    <li><b>Obscured Diaphragm:</b> The right hemidiaphragm is completely
+                                                        obscured by the effusion.</li>
+                                                </ul>
+                                                <p class="mt-2"><b>2. Atelectasis:</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li><b>Mediastinal Shift:</b> The mediastinum is shifted towards the
+                                                        right...</li>
+                                                    <li><b>Reduced Right Lung Volume:</b> The overall right lung field
+                                                        appears smaller and more collapsed...</li>
+                                                    <li><b>Increased Opacity/Consolidation:</b> The remaining lung
+                                                        parenchyma in the right hemithorax appears denser...</li>
+                                                </ul>
+                                                <p class="mt-2">In summary, the image demonstrates a large right-sided
+                                                    pleural effusion... accompanied by signs of volume loss in the right
+                                                    hemithorax...</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Moonshot-v1 -->
+                                        <div class="card mb-4">
+                                            <header class="card-header" style="background-color: #f5f5f5;">
+                                                <p class="card-header-title is-size-6"
+                                                    style="padding: 0.5em 0.75em; color: #555;">Moonshot-v1</p>
+                                            </header>
+                                            <div class="card-content"
+                                                style="padding: 1em; font-size: 13px; color: #444;">
+                                                <p>As an AI, I'm not capable of providing medical diagnoses or
+                                                    interpreting medical images with the same level of expertise as a
+                                                    trained medical professional. However, I can provide general
+                                                    information...</p>
+                                                <p class="mt-2">Atelectasis is a condition where one or both lungs
+                                                    partially or completely collapse. On an X-ray, this might appear as
+                                                    an area of increased opacity...</p>
+                                                <p class="mt-2">Pleural effusion refers to the buildup of excess fluid
+                                                    in the pleural cavity... This can cause the lung to partially
+                                                    collapse and may appear on an X-ray as a layering density at the
+                                                    lung base or costophrenic angle...</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Qwen-VL-Max -->
+                                        <div class="card mb-4">
+                                            <header class="card-header" style="background-color: #f5f5f5;">
+                                                <p class="card-header-title is-size-6"
+                                                    style="padding: 0.5em 0.75em; color: #555;">Qwen-VL-Max</p>
+                                            </header>
+                                            <div class="card-content"
+                                                style="padding: 1em; font-size: 13px; color: #444;">
+                                                <p>The chest X-ray (DR image) shows several findings consistent with
+                                                    <b>atelectasis</b> and <b>pleural effusion</b>, particularly on the
+                                                    <b>left side</b>. Here's the basis for each diagnosis:
+                                                </p>
+                                                <p class="mt-2"><b>1. Pleural Effusion (Left Side)</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li><b>Blunting of the left costophrenic angle:</b> The sharp angle
+                                                        between the diaphragm and rib cage on the left is obscured or
+                                                        rounded...</li>
+                                                    <li><b>Homogeneous opacity in the lower left hemithorax:</b> There
+                                                        is increased density in the left lower lung field...</li>
+                                                    <li><b>Meniscus sign:</b> A concave upper border of the fluid
+                                                        collection...</li>
+                                                    <li><b>Elevation of the left hemidiaphragm:</b> Fluid can push the
+                                                        diaphragm upward.</li>
+                                                </ul>
+                                                <p class="mt-2"><b>2. Atelectasis (Left Lower Lobe Likely)</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li><b>Volume loss in the left lower lung:</b> The left hemithorax
+                                                        appears compressed, and there is a shift of mediastinal
+                                                        structures slightly toward the left...</li>
+                                                    <li><b>Loss of normal lung markings in the affected area:</b> The
+                                                        lung tissue appears denser and consolidated...</li>
+                                                </ul>
+                                                <p class="mt-2"><b>Summary:</b><br>&#10004; <b>Pleural effusion</b>:
+                                                    Left-sided, based on blunted costophrenic angle, homogeneous
+                                                    opacity, and diaphragmatic elevation.<br>&#10004;
+                                                    <b>Atelectasis</b>: Likely left lower lobe, secondary to compressive
+                                                    atelectasis from the adjacent pleural effusion.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Grok-4 -->
+                                        <div class="card mb-4">
+                                            <header class="card-header" style="background-color: #f5f5f5;">
+                                                <p class="card-header-title is-size-6"
+                                                    style="padding: 0.5em 0.75em; color: #555;">Grok-4</p>
+                                            </header>
+                                            <div class="card-content"
+                                                style="padding: 1em; font-size: 13px; color: #444;">
+                                                <p>I can explain the basis for the diagnosis of atelectasis and pleural
+                                                    effusion based on an analysis of the chest X-ray (CXR) you provided.
+                                                    I'll keep this concise, objective, and focused on the visible
+                                                    findings...</p>
+                                                <p class="mt-2"><b>1. Basis for Pleural Effusion:</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li>Increased opacity (whitish haziness) at the right lung base,
+                                                        obscuring the normal sharp outline of the right hemidiaphragm...
+                                                    </li>
+                                                    <li>Blunting or filling-in of the right costophrenic angle...</li>
+                                                    <li>A subtle "meniscus sign" (curved upper border of the opacity) at
+                                                        the right base...</li>
+                                                </ul>
+                                                <p class="mt-2"><b>2. Basis for Atelectasis:</b></p>
+                                                <ul style="list-style-type: disc; margin-left: 20px;">
+                                                    <li>Loss of volume and increased density in the right lower lung
+                                                        zone, making it appear smaller and whiter compared to the left
+                                                        lung...</li>
+                                                    <li>Crowding or absence of normal lung markings (vascular
+                                                        structures) in the affected area...</li>
+                                                    <li>Subtle elevation or silhouetting of the right hemidiaphragm,
+                                                        suggesting collapse of the adjacent lung tissue.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="BibTeX">
+        <div class="container is-max-desktop content">
+            <h2 class="title">BibTeX</h2>
+            <pre><code>@inproceedings{icml2026turningdrift,
+  title={Turning Drift into Constraint: Robust Reasoning Alignment in Non-Stationary Multi-Stream Environments},
+  author={Firstname1 Lastname1 and Firstname2 Lastname2 and others},
+  booktitle={International Conference on Machine Learning (ICML)},
+  year={2026}
+}</code></pre>
+        </div>
+    </section>
+
+</body>
+
+</html>
