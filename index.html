@@ -162,10 +162,34 @@
             <div class="columns is-centered">
                 <div class="column is-full">
 
-                    <div class="mb-5 has-text-centered">
-                        <img src="./measure.png" alt="Concept drift among source MLLMs"
-                            style="max-width: 80%; border-radius:10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                        <p class="is-size-7 mt-2 has-text-grey">Concept drift among source MLLMs.</p>
+                    <!-- Preamble: Discovery of the rule -->
+                    <div class="content has-text-justified mb-5">
+                        <p>
+                            During our initial attempts to align target models using the collective reasoning of
+                            multiple state-of-the-art MLLMs, we observed a counter-intuitive phenomenon: simply
+                            aggregating their chain-of-thought (CoT) trajectories often degraded the target model's
+                            robustness, leading to severe hallucinations and semantic inconsistencies. By systematically
+                            tracing the generation processes, we discovered that these errors did not stem from
+                            individual source inadequacies, but rather from the fundamentally conflicting reasoning
+                            paradigms across different models. This critical observation led us to realize that the
+                            multi-source alignment process is not a static knowledge transfer, but a dynamic and
+                            non-stationary challenge characterized by inter-model concept drift.
+                        </p>
+                    </div>
+
+                    <!-- Images: intro.png and measure.png side-by-side -->
+                    <div class="columns is-centered is-vcentered mb-5">
+                        <div class="column is-half has-text-centered">
+                            <img src="./intro.png" alt="Conceptual illustration of multi-stream concept drift"
+                                style="width: 100%; border-radius:10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <p class="is-size-7 mt-2 has-text-grey">Conceptual illustration of multi-stream drift.</p>
+                        </div>
+                        <div class="column is-half has-text-centered">
+                            <img src="./measure.png" alt="Concept drift among source MLLMs"
+                                style="width: 100%; border-radius:10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <p class="is-size-7 mt-2 has-text-grey">Quantitative measurement of concept drift among
+                                source MLLMs.</p>
+                        </div>
                     </div>
 
                     <div class="mb-5">
