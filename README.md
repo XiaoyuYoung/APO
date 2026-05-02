@@ -3,9 +3,9 @@
 <h1>Turning Drift into Constraint: Robust Reasoning Alignment in Non-Stationary Environments</h1>
 
 [**Xiaoyu Yang**](https://xiaoyuyoung.github.io/)<sup>1</sup>&emsp;
-[**Jie Lu**](https://profiles.uts.edu.au/Jie.Lu)<sup>1</sup>&emsp;
-**Wei Duan**<sup>1</sup>&emsp;
 **En Yu**<sup>1</sup>&emsp;
+**Wei Duan**<sup>1</sup>&emsp;
+[**Jie Lu**](https://profiles.uts.edu.au/Jie.Lu)<sup>1</sup>&emsp;
 
 <sup>1</sup>University of Technology Sydney, Sydney, Australia
 
