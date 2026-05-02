@@ -211,7 +211,7 @@ If you find this repository useful for your research, please consider citing our
 ```bibtex
 @inproceedings{anonymous2026turning,
     title={Turning Drift into Constraint: Robust Reasoning Alignment in Non-Stationary Multi-Stream Environments},
-    author={Yang, Xiaoyu and Lu, Jie and Duan, Wei and Yu, En},
+    author={Yang, Xiaoyu and Yu, En and Duan, Wei and Lu, Jie},
     booktitle={Forty-third International Conference on Machine Learning},
     year={2026},
     url={https://openreview.net/forum?id=jgebUtw1lA}
