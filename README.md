@@ -14,7 +14,7 @@
 <a href='https://xiaoyuyoung.github.io/APO/'><img src='https://img.shields.io/badge/Project_Page-Autonomous Preference Optimization (APO)-green' alt='Project Page'></a>
 
 <a href="https://arxiv.org/abs/2510.04142"><img src='https://img.shields.io/badge/arXiv-2510.04142-b31b1b' alt='arXiv'></a>
-<a href="https://openreview.net/forum?id=jgebUtw1lA"><img src='https://img.shields.io/badge/OpenReview-ICML 2025-blue' alt='OpenReview'></a>
+<a href="https://openreview.net/forum?id=jgebUtw1lA"><img src='https://img.shields.io/badge/OpenReview-ICML 2026-blue' alt='OpenReview'></a>
 <a href='https://huggingface.co/datasets/MiaoMiaoYang/CXR-MAX/'><img src='https://img.shields.io/badge/HuggingFace%F0%9F%A4%97-Dataset-yellow?style=plastic' alt='Dataset'></a>
 <!-- <a href='https://xiaoyuyoung.github.io/APO/'><img src='https://visitor-badge.laobi.icu/badge?page_id=XiaoyuYoung.APO' alt='Visitor Counter'></a> -->
 </div>
@@ -22,7 +22,7 @@
 
 
 
-This repository is a PyTorch implementation of Autonomous Preference Optimization proposed in *Turning Drift into Constraint: Robust Reasoning Alignment in Non-Stationary Environments* (ICML 2025)
+This repository is a PyTorch implementation of Autonomous Preference Optimization proposed in *Turning Drift into Constraint: Robust Reasoning Alignment in Non-Stationary Environments* (ICML 2026)
 
 This paper identifies a critical yet underexplored challenge in reasoning alignment from multiple multi-modal large language models (MLLMs): In non-stationary environments, the diverse reasoning distributions of source models often evolve unpredictably, transmitting systematic biases and drift to the target model. To address this, we formulate multi-source reasoning alignment as a constraint satisfaction problem under concept drift theory. We propose Autonomous Preference Optimization (APO), a novel framework that treats inter-model divergences not as noise, but as dynamic negative constraints. APO operates via a two-stage protocol: first, supervised bootstrapping projects the target model into the capability union of source models; second, constraint-aware optimization synthesizes a consistent consensus manifold by explicitly suppressing drifting trajectories via a multi-negative plackett-luce objective. Extensive experiments on chest X-ray interpretation demonstrate that our 7B model achieves superior robustness, outperforming even proprietary source models in average accuracy. Furthermore, we release CXR-MAX, a large-scale benchmark comprising 170,982 reasoning trajectories from seven large-scale MLLMs to facilitate research on reasoning alignment under drift.
 
