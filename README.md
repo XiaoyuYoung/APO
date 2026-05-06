@@ -9,7 +9,7 @@
 
 <sup>1</sup>University of Technology Sydney, Sydney, Australia
 
-**ICML 2025**
+**ICML 2026**
 
 <a href='https://xiaoyuyoung.github.io/APO/'><img src='https://img.shields.io/badge/Project_Page-Autonomous Preference Optimization (APO)-green' alt='Project Page'></a>
 
