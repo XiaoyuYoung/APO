@@ -16,7 +16,7 @@
 <a href="https://arxiv.org/abs/2510.04142"><img src='https://img.shields.io/badge/arXiv-2510.04142-b31b1b' alt='arXiv'></a>
 <a href="https://openreview.net/forum?id=jgebUtw1lA"><img src='https://img.shields.io/badge/OpenReview-ICML 2025-blue' alt='OpenReview'></a>
 <a href='https://huggingface.co/datasets/MiaoMiaoYang/CXR-MAX/'><img src='https://img.shields.io/badge/HuggingFace%F0%9F%A4%97-Dataset-yellow?style=plastic' alt='Dataset'></a>
-<!-- <a href='https://xiaoyuyoung.github.io/CPO/'><img src='https://visitor-badge.laobi.icu/badge?page_id=XiaoyuYoung.CPO' alt='Visitor Counter'></a> -->
+<!-- <a href='https://xiaoyuyoung.github.io/APO/'><img src='https://visitor-badge.laobi.icu/badge?page_id=XiaoyuYoung.APO' alt='Visitor Counter'></a> -->
 </div>
 
 
