@@ -209,7 +209,7 @@ I can explain the basis for the diagnosis of atelectasis and pleural effusion ba
 If you find this repository useful for your research, please consider citing our paper:
 
 ```bibtex
-@inproceedings{anonymous2026turning,
+@inproceedings{yang2026turning,
     title={Turning Drift into Constraint: Robust Reasoning Alignment in Non-Stationary Multi-Stream Environments},
     author={Yang, Xiaoyu and Yu, En and Duan, Wei and Lu, Jie},
     booktitle={Forty-third International Conference on Machine Learning},
