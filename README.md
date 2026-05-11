@@ -1,6 +1,6 @@
 
 <div align="center">
-<h1>Turning Drift into Constraint: Robust Reasoning Alignment in Non-Stationary Environments</h1>
+<h1>Turning Drift into Constraint: Robust Reasoning Alignment in Non-Stationary Multi-Stream Environments</h1>
 
 [**Xiaoyu Yang**](https://xiaoyuyoung.github.io/)<sup>1</sup>&emsp;
 **En Yu**<sup>1</sup>&emsp;
